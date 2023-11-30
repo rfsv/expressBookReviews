@@ -35,15 +35,40 @@ public_users.get('/isbn/:isbn',function (req, res) {
  });
   
 // Get book details based on author
+// Hints:
+// 1. Obtain all the keys for the ‘books’ object.
+// 2. Iterate through the ‘books’ array & check the author matches the one provided in the request parameters.
 public_users.get('/author/:author',function (req, res) {
-  //Write your code here
-  return res.status(300).json({message: "Yet to be implemented"});
+  //Write your code here - Task 3 - Works
+  const req_author = req.params.author;
+  bookslist_array = books;
+  authorlist_array = {};
+  for(var key in bookslist_array) {
+      if(bookslist_array.hasOwnProperty(key)) {
+          var value = bookslist_array[key];
+          if  (value["author"] == req_author) {
+              authorlist_array[key]=value;
+          }
+      }
+  }
+  res.send(authorlist_array);
 });
 
 // Get all books based on title
 public_users.get('/title/:title',function (req, res) {
-  //Write your code here
-  return res.status(300).json({message: "Yet to be implemented"});
+  //Write your code here - Task 4 - Works
+  const req_title=req.params.title;
+  bookslist_array=books;
+  titlelist_array={};
+  for(var key in bookslist_array) {
+      if(bookslist_array.hasOwnProperty(key)) {
+          var value=bookslist_array[key];
+          if  (value["title"] == req_title) {
+            titlelist_array[key]=value;
+          }
+      }
+  }
+  res.send(titlelist_array);
 });
 
 //  Get book review
