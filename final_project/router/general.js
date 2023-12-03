@@ -31,10 +31,7 @@ public_users.get('/',function (req, res) {
     resolve("Response was sent"); //del
   })
   console.log("Promise implemented");
-  //Call the promise and wait for it to be resolved and then print a message.
-  GetBookListPromise.then((successMessage) => {
-        console.log("From Callback -> " + successMessage)
-      })
+  GetBookListPromise.then((successMessage) => {console.log("From Callback -> " + successMessage)})
 });
 
 //-------------------------------------------------------------------------------------------------------
@@ -52,12 +49,9 @@ public_users.get('/isbn/:isbn',function (req, res) {
       reject("ISBN not found")
     }
   })
-  //Call the promise and wait for it to be resolved and then print a message.
   GetBookDetailsPromise
-    .then((successMessage) => {
-      console.log("From Callback -> " + successMessage)})
-    .catch((ErrorMessage) => {
-      console.log("From Callback catch -> " + ErrorMessage);});  
+    .then((successMessage) => {console.log("From Callback -> " + successMessage)})
+    .catch((ErrorMessage) => {console.log("From Callback catch -> " + ErrorMessage);}) 
 });  
 
 //-------------------------------------------------------------------------------------------------------
@@ -79,8 +73,8 @@ public_users.get('/author/:author',function (req, res) {
               }
             }  
         }
-        if (!(Object.keys(authorlist_array).length === 0)) {
         //if (authorlist_array){
+        if (!(Object.keys(authorlist_array).length === 0)) {
           console.log("The Author exists");
           res.send(authorlist_array);
           resolve("The author exists.");
@@ -91,12 +85,8 @@ public_users.get('/author/:author',function (req, res) {
         }
       })
       GetBookDetailsByAuthorPromise
-       .then((successMessage) => {
-          console.log("From Callback -> " + successMessage)
-        })
-       .catch((ErrorMessage) => { 
-          console.log("From Callback catch -> " + ErrorMessage);
-        });
+       .then((successMessage) => {console.log("From Callback -> " + successMessage)})
+       .catch((ErrorMessage) => {console.log("From Callback catch -> " + ErrorMessage)});
 });
 
 // Get all books based on title
@@ -125,19 +115,21 @@ public_users.get('/title/:title',function (req, res) {
         }
       })
       GetBookDetailsByTitlePromise
-        .then(
-         (successMessage) => {console.log("From Callback -> " + successMessage)
-         })
-        .catch(
-         (ErrorMessage) => {console.log("From Callback catch -> " + ErrorMessage);
-        }); });
+        .then((successMessage) => {console.log("From Callback -> " + successMessage)})
+        .catch((ErrorMessage) => {console.log("From Callback catch -> " + ErrorMessage)}); 
+    });
 
 // Get book review
 public_users.get('/review/:isbn',function (req, res) {
   //Write your code here - Task 5 - Works
   const isbn = req.params.isbn;
   var book = (books[isbn]);
-  res.send(book.reviews);
+  if (books[isbn]){
+    //res.send(book.reviews);
+    return res.status(200).json(books[isbn].reviews);
+  } else {
+    res.send("Book not found");
+  }
 });
 
 module.exports.general = public_users;

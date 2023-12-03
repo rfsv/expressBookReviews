@@ -52,20 +52,9 @@ regd_users.post("/login", (req,res) => {
 // Add a book review
 regd_users.put("/auth/review/:isbn", (req, res) => {
   //Write your code here - Task 8
-  console.log("PUT request function -> Add a book review") //del
   const isbn = req.params.isbn;
-  console.log("ISBN: " + isbn);
   let filtered_book = books[isbn]
-  console.log(filtered_book); //del
-  console.log("User: " + loginUser); //del
   if (filtered_book) {
-    // delete begin
-    let copiedReviews = Object.assign({}, books[isbn].reviews);
-    console.log("Reviews List:");
-    for (const prop in copiedReviews) {
-      console.log(`copiedReviews.${prop} = ${copiedReviews[prop]}`); //del
-    }
-    // delete end
     let review = req.query.reviews;
     if (review){
       books[isbn].reviews[loginUser] = req.query.reviews;
@@ -80,24 +69,14 @@ regd_users.put("/auth/review/:isbn", (req, res) => {
 
 // Delete a book review - Task 9
 regd_users.delete("/auth/review/:isbn", (req, res) => {
-  console.log("DELETE request function -> Delete a book review"); //del
   const isbn = req.params.isbn;
-  console.log("ISBN: " + isbn);
   let filtered_book = books[isbn]
-  console.log(filtered_book); //del
-  console.log("User: " + loginUser); //del
   if (filtered_book) {
-    let copiedReviews = Object.assign({}, books[isbn].reviews);
-    console.log("Reviews List:");
-    for (const prop in copiedReviews) {
-      console.log(`copiedReviews.${prop} = ${copiedReviews[prop]}`); //del
-      }
     delete books[isbn].reviews[loginUser];
     res.send(`Review of user ${loginUser} for the book with isbn ${isbn} has been deleted.`);
   } else {
     res.send(`The book with isbn ${isbn} does not exists.`);
   }
-
 });
 
 module.exports.authenticated = regd_users;
