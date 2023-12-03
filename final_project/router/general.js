@@ -23,17 +23,43 @@ public_users.post("/register", (req,res) => {
 
 // Get the book list available in the shop
 public_users.get('/',function (req, res) {
-  //Write your code here - Task 1 - Works
-  res.send(JSON.stringify(books,null,4));
+  //Write your code here - Task 10 - 
+  let GetBookListPromise = new Promise((resolve,reject) => {
+    console.log("Inside PROMISE Function."); //del
+    res.send(JSON.stringify(books,null,4))
+    resolve("Response was sent"); //del
+  })
+  console.log("Promise implemented");
+  //Call the promise and wait for it to be resolved and then print a message.
+  GetBookListPromise.then((successMessage) => {
+        console.log("From Callback " + successMessage)
+      })
 });
 
 // Get book details based on ISBN
 public_users.get('/isbn/:isbn',function (req, res) {
-  //Write your code here - Task 2 - Works
-  const isbn = req.params.isbn;
-  res.send(books[isbn]);
- });
-  
+  //Write your code here - Task 11 -
+  let GetBookDetailsPromise = new Promise((resolve,reject) => {
+    console.log("Inside PROMISE Function.");
+    const isbn = req.params.isbn;
+    if (books[isbn]){
+      res.send(books[isbn]);
+      resolve("Response was sent - desde IF");
+    } else {
+      res.send("ISBN not found");
+      reject("ISBN not found")
+    }
+
+  })
+  //Call the promise and wait for it to be resolved and then print a message.
+  GetBookDetailsPromise
+    .then((successMessage) => {
+      console.log("From Callback " + successMessage)})
+    .catch((ErrorMessage) => {
+      console.log("From Callback catch " + ErrorMessage);});  
+});  
+
+
 // Get book details based on author
 // Hints:
 // 1. Obtain all the keys for the ‘books’ object.
