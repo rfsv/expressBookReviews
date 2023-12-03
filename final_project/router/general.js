@@ -89,6 +89,7 @@ public_users.get('/author/:author',function (req, res) {
        .catch((ErrorMessage) => {console.log("From Callback catch -> " + ErrorMessage)});
 });
 
+//-------------------------------------------------------------------------------------------------------
 // Get all books based on title
 public_users.get('/title/:title',function (req, res) {
     //Write your code here - Task 13
@@ -119,14 +120,15 @@ public_users.get('/title/:title',function (req, res) {
         .catch((ErrorMessage) => {console.log("From Callback catch -> " + ErrorMessage)}); 
     });
 
+//-------------------------------------------------------------------------------------------------------
 // Get book review
 public_users.get('/review/:isbn',function (req, res) {
   //Write your code here - Task 5 - Works
   const isbn = req.params.isbn;
   var book = (books[isbn]);
   if (books[isbn]){
-    //res.send(book.reviews);
-    return res.status(200).json(books[isbn].reviews);
+    res.send(book.reviews);
+    //return res.status(200).json(books[isbn].reviews);
   } else {
     res.send("Book not found");
   }
