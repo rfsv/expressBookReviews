@@ -33,7 +33,7 @@ public_users.get('/',function (req, res) {
   console.log("Promise implemented");
   //Call the promise and wait for it to be resolved and then print a message.
   GetBookListPromise.then((successMessage) => {
-        console.log("From Callback " + successMessage)
+        console.log("From Callback -> " + successMessage)
       })
 });
 
@@ -55,9 +55,9 @@ public_users.get('/isbn/:isbn',function (req, res) {
   //Call the promise and wait for it to be resolved and then print a message.
   GetBookDetailsPromise
     .then((successMessage) => {
-      console.log("From Callback " + successMessage)})
+      console.log("From Callback -> " + successMessage)})
     .catch((ErrorMessage) => {
-      console.log("From Callback catch " + ErrorMessage);});  
+      console.log("From Callback catch -> " + ErrorMessage);});  
 });  
 
 //-------------------------------------------------------------------------------------------------------
