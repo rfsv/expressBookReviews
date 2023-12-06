@@ -72,8 +72,11 @@ regd_users.delete("/auth/review/:isbn", (req, res) => {
   const isbn = req.params.isbn;
   let filtered_book = books[isbn]
   if (filtered_book) {
-    delete books[isbn].reviews[loginUser];
-    res.send(`Review of user ${loginUser} for the book with isbn ${isbn} has been deleted.`);
+    if(books[isbn].reviews[loginUser]){
+      delete books[isbn].reviews[loginUser];
+      res.send(`Review of user ${loginUser} for the book with isbn ${isbn} has been deleted.`)
+    } else {
+      res.send(`Review of user ${loginUser} for the book with isbn ${isbn} does not exist.`)}
   } else {
     res.send(`The book with isbn ${isbn} does not exists.`);
   }
