@@ -106,7 +106,7 @@ public_users.get('/title/:title',function (req, res) {
 public_users.get('/review/:isbn',function (req, res) {
   //Write your code here - Task 5
   const isbn = req.params.isbn;
-  var book = (books[isbn]);
+  //var book = (books[isbn]);
   if (books[isbn]){
     res.status(200).json(book.reviews);
   } else {
